@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
@@ -10,11 +10,22 @@ const participants = [
 ];
 
 function handleParticipantAdd() {
-    console.log("Teste clique");
+    if(participants.includes("Heres")){
+      return Alert.alert("Participante Duplicado" , "Já existe um participante na lista com esse nome")
+    }
 }
 
 function handleParticipantRemove(name: String) {
-  console.log (`Clicou em remover ${name}`)
+   Alert.alert("Remover" , `Deseja remover o participante ${name} ?` , [
+    {
+      text: 'Sim',
+      onPress: () => Alert.alert("Deletado!")
+    },
+    {
+      text: 'Não',
+      style: 'cancel'
+    }
+   ])
 }
 
 
@@ -47,7 +58,7 @@ function handleParticipantRemove(name: String) {
           <Participant 
               key={item}
               name= {item}
-              onRemove= {() => handleParticipantRemove("Mateus Macedo")}
+              onRemove= {() => handleParticipantRemove(item)}
       />
     )}  
       showsVerticalScrollIndicator={false}
